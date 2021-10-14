@@ -1,0 +1,4 @@
+baseURL = 'https://code.horse/'
+languageCode = 'en-us'
+title = "Byte's Blog"
+theme = 'ananke'
