@@ -22,3 +22,5 @@ I'm a junior software developer with a passion for security. I dabble in lots of
 Most of my work can be found on [my GitHub](https://github.com/BytewaveMLP).
 
 Thanks for stopping by! [💚](https://byte.gay/)
+
+**All opinions are my own, and are not representative of any employer, past, present, or future.**
