@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>byte-sized blog</title><link>https://code.horse/</link><description>Recent content on byte-sized blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>(c) Eliot Partridge, 2021</copyright><atom:link href="https://code.horse/index.xml" rel="self" type="application/rss+xml"/><item><title>About</title><link>https://code.horse/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://code.horse/about/</guid><description>Hi. I&amp;rsquo;m Bytewave. Or Byte. Or Eliot. Whichever you prefer; I&amp;rsquo;m not picky.
+I make things and break things&amp;hellip; mostly break things.
+I&amp;rsquo;m a junior software developer with a passion for security. I dabble in lots of projects, languages, and technologies, such as:
+Python TypeScript / JavaScript Ruby / Rails C# Rust C Java PHP Most of my work can be found on my GitHub.
+Thanks for stopping by!</description><content>&lt;h1 id="hi-im-bytewave">Hi. I&amp;rsquo;m Bytewave.&lt;/h1>
+&lt;p>Or Byte. Or Eliot. Whichever you prefer; I&amp;rsquo;m not picky.&lt;/p>
+&lt;p>I make things and break things&amp;hellip; mostly break things.&lt;/p>
+&lt;p>I&amp;rsquo;m a junior software developer with a passion for security. I dabble in lots of projects, languages, and technologies, such as:&lt;/p>
+&lt;ul>
+&lt;li>Python&lt;/li>
+&lt;li>TypeScript / JavaScript&lt;/li>
+&lt;li>Ruby / Rails&lt;/li>
+&lt;li>C#&lt;/li>
+&lt;li>Rust&lt;/li>
+&lt;li>C&lt;/li>
+&lt;li>Java&lt;/li>
+&lt;li>PHP&lt;/li>
+&lt;/ul>
+&lt;p>Most of my work can be found on &lt;a href="https://github.com/BytewaveMLP">my GitHub&lt;/a>.&lt;/p>
+&lt;p>Thanks for stopping by! &lt;a href="https://byte.gay/">💚&lt;/a>&lt;/p></content></item></channel></rss>
