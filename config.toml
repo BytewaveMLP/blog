@@ -17,8 +17,8 @@ theme = "terminal"
   # set Twitter handles for Twitter cards
   # see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/guides/getting-started#card-and-content-attribution
   # do not include @
-  creator = ""
-  site = ""
+  creator = "Bytewave81"
+  site = "Bytewave81"
 
 [languages]
   [languages.en]
@@ -27,7 +27,7 @@ theme = "terminal"
     subtitle = "My personal blog"
     owner = "Eliot Partridge"
     keywords = "programming"
-    copyright = "&copy; Eliot Partridge, 2021"
+    copyright = "(c) Eliot Partridge, 2021"
     menuMore = "Show more"
     readMore = "Read more"
     readOtherPosts = "Read other posts"
@@ -37,7 +37,7 @@ theme = "terminal"
     missingBackButtonLabel = "Back to home page"
 
     [languages.en.params.logo]
-      logoText = "byte-sized"
+      logoText = "byte-sized blog"
       logoHomeLink = "/"
 
     [languages.en.menu]
