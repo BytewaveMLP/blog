@@ -22,7 +22,7 @@ We were wrong.
 
 On October 3rd, one of our community members noticed Cask was throwing 500 errors upon visiting the page. Scrubbing through the logs, it was pretty easy to guess what was going on:
 
-```ruby
+```
 OpenSSL::SSL::SSLError (SSL_connect returned=1 errno=0 state=error: certificate verify failed (certificate has expired)):
 
 app/services/openid_service.rb:32:in `request_access_token'
@@ -37,7 +37,7 @@ This brought up the first issue: project rot. It had been a while since anyone h
 
 When we brought up our stack, we noticed our Cask containers were immediately crashing. Digging into the logs, we found that `bin/rails` was throwing `Permission denied` when trying to run after the container down-leveled its privileges. This is about when I enter the story, as before now I'd been busy with coursework, and had been unable to do any sort of deep investigation. My first instinct was to check executable permissions on the Rails binstub, since that's the obvious answer to `Permission denied`: check the permissions. But that's when I noticed the third major issue:
 
-```shell
+```
 root@container:/app/bin# ls -lah /usr/bin/env
 -rwxr-xr-x 1 root root 48K Sep 24  2020 /usr/bin/env
 root@container:/app/bin# su cidercask
@@ -53,7 +53,7 @@ That wasn't supposed to happen. That couldn't happen. Right? Surely nothing in o
 
 It was at this point that another friend I was chatting with posed an interesting point: what about `/usr`? Specifically, did I make sure that my user had search permissions for `/usr/bin`? It hadn't occurred to me that that might be an issue, since... well, what's going to change permissions of `/usr` from anything other than `755`? And yet...
 
-```shell
+```
 root@container:/app/bin# ls -la /usr
 total 44
 drwxrws--- 1 root root 4096 Aug 16  2020 .
@@ -64,7 +64,7 @@ drwxrws--- 1 root root 4096 Aug 16  2020 bin
 
 `750`? And is that... a sticky bit? Where the hell did that come from? Well...
 
-```shell
+```
 bw81@production-host:~srv/cider-cask$ ls -la docker
 ...
 drwxrws---+  3 cas srv 4.0K Aug 15  2020 usr/
@@ -79,7 +79,7 @@ Great. There went 4 hours of my life I'll never get back. So we reset the permis
 
 ... I'm just kidding.
 
-```ruby
+```
 OpenSSL::SSL::SSLError (SSL_connect returned=1 errno=0 state=error: certificate verify failed (certificate has expired)):
 
 app/services/openid_service.rb:32:in `request_access_token'
@@ -94,7 +94,7 @@ So all of that was for nothing. We rebuilt the container on a completely fresh b
 
 Okay, so... let's check our CA certificates. If the image maintainers won't update them for some reason, I guess we can always update them ourselves.
 
-```shell
+```
 root@container:/app# apt-get update && apt-get install ca-certificates
 ...
 ca-certificates is already the newest version (20210119).
@@ -113,7 +113,7 @@ That's pretty recent. Certainly not the latest, but certainly newer than the [1.
 
 Were we somehow just... missing the ISRG root CA?
 
-```shell
+```
 root@container:/app# ls -lah /etc/ssl/certs | grep -i isrg
 lrwxrwxrwx 1 root root   16 Sep 28 21:32 4042bcee.0 -> ISRG_Root_X1.pem
 lrwxrwxrwx 1 root root   51 Sep 28 21:32 ISRG_Root_X1.pem -> /usr/share/ca-certificates/mozilla/ISRG_Root_X1.crt
