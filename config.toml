@@ -1,4 +1,47 @@
 baseURL = 'https://code.horse/'
 languageCode = 'en-us'
-title = "Byte's Blog"
-theme = 'ananke'
+title = "byte-sized blog"
+theme = "terminal"
+
+[sitemap]
+  changefreq = "monthly"
+  priority = 0.5
+  filename = "sitemap.xml"
+
+[params]
+  themeColor = "green"
+  showLanguageSelector = false
+  fullWidthTheme = false
+  centerTheme = true
+[params.twitter]
+  # set Twitter handles for Twitter cards
+  # see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/guides/getting-started#card-and-content-attribution
+  # do not include @
+  creator = ""
+  site = ""
+
+[languages]
+  [languages.en]
+    languageName = "English"
+    title = "byte-sized blog"
+    subtitle = "My personal blog"
+    owner = "Eliot Partridge"
+    keywords = "programming"
+    copyright = "&copy; Eliot Partridge, 2021"
+    menuMore = "Show more"
+    readMore = "Read more"
+    readOtherPosts = "Read other posts"
+    newerPosts = "Newer posts"
+    olderPosts = "Older posts"
+    missingContentMessage = "Page not found..."
+    missingBackButtonLabel = "Back to home page"
+
+    [languages.en.params.logo]
+      logoText = "byte-sized"
+      logoHomeLink = "/"
+
+    [languages.en.menu]
+      [[languages.en.menu.main]]
+        identifier = "about"
+        name = "About"
+        url = "/about"
