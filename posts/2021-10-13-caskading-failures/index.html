@@ -1,0 +1,155 @@
+<!doctype html><html lang=en>
+<head>
+<title>Caskading Failures :: byte-sized blog</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="You ever have one of those days? Where everything&amp;rsquo;s falling apart and nothing makes sense? Where you&amp;rsquo;re left wondering &amp;ldquo;how did any of this ever work?&amp;rdquo;
+Yeah. That was yesterday for me.
+First, a little backstory. So there&amp;rsquo;s this little MLP:FIM community I&amp;rsquo;m a part of called Cider and Saddle. It&amp;rsquo;s a small bunch, only about 6 people all-told, and we&amp;rsquo;re all good friends. In that group are a couple of nerds like myself who enjoy tinkering with computers and programming.">
+<meta name=keywords content="programming">
+<meta name=robots content="noodp">
+<link rel=canonical href=https://code.horse/posts/2021-10-13-caskading-failures/>
+<link rel=stylesheet href=https://code.horse/assets/style.css>
+<link rel=stylesheet href=https://code.horse/assets/green.css>
+<link rel=apple-touch-icon href=https://code.horse/img/apple-touch-icon-192x192.png>
+<link rel="shortcut icon" href=https://code.horse/img/favicon/green.png>
+<meta name=twitter:card content="summary">
+<meta name=twitter:site content="Bytewave81">
+<meta name=twitter:creator content>
+<meta property="og:locale" content="en">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Caskading Failures">
+<meta property="og:description" content="You ever have one of those days? Where everything&amp;rsquo;s falling apart and nothing makes sense? Where you&amp;rsquo;re left wondering &amp;ldquo;how did any of this ever work?&amp;rdquo;
+Yeah. That was yesterday for me.
+First, a little backstory. So there&amp;rsquo;s this little MLP:FIM community I&amp;rsquo;m a part of called Cider and Saddle. It&amp;rsquo;s a small bunch, only about 6 people all-told, and we&amp;rsquo;re all good friends. In that group are a couple of nerds like myself who enjoy tinkering with computers and programming.">
+<meta property="og:url" content="https://code.horse/posts/2021-10-13-caskading-failures/">
+<meta property="og:site_name" content="byte-sized blog">
+<meta property="og:image" content="https://code.horse/img/favicon/green.png">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+<meta property="article:published_time" content="2021-10-13 21:55:15 -0500 -0500">
+</head>
+<body class=green>
+<div class="container center headings--one-size">
+<header class=header>
+<div class=header__inner>
+<div class=header__logo>
+<a href=/>
+<div class=logo>
+byte-sized blog
+</div>
+</a>
+</div>
+<div class=menu-trigger>menu</div>
+</div>
+<nav class=menu>
+<ul class="menu__inner menu__inner--desktop">
+<li><a href=/about>About</a></li>
+</ul>
+<ul class="menu__inner menu__inner--mobile">
+<li><a href=/about>About</a></li>
+</ul>
+</nav>
+</header>
+<div class=content>
+<div class=post>
+<h1 class=post-title>
+<a href=https://code.horse/posts/2021-10-13-caskading-failures/>Caskading Failures</a></h1>
+<div class=post-meta>
+<span class=post-date>
+2021-10-13
+</span>
+</div>
+<div class=post-content><div>
+<p>You ever have one of <em>those</em> days? Where everything&rsquo;s falling apart and nothing makes sense? Where you&rsquo;re left wondering &ldquo;how did any of this ever work?&rdquo;</p>
+<p>Yeah. That was yesterday for me.</p>
+<h2 id=first-a-little-backstory>First, a little backstory.<a href=#first-a-little-backstory class=hanchor arialabel=Anchor>&#8983;</a> </h2>
+<p>So there&rsquo;s this little <a href=https://en.wikipedia.org/wiki/My_Little_Pony:_Friendship_Is_Magic#Fandom>MLP:FIM</a> community I&rsquo;m a part of called Cider and Saddle. It&rsquo;s a small bunch, only about 6 people all-told, and we&rsquo;re all good friends. In that group are a couple of nerds like myself who enjoy tinkering with computers and programming. Shortly after I joined CaS, us nerds got together and discussed the idea of building up a set of linked services for the community to use, backed by some kind of internal account system. The specifics of this system will definitely be the subject of a future blog post, but I&rsquo;ll offer some highlights here: at the heart of our system is OpenLDAP and Keycloak, which provide LDAP- and OpenID Connect-based authentication for our services. Then, we have a few different applications up for the community to use, including <a href=https://drawpile.net>Drawpile</a>, and a custom-built file-sharing application we call Cider Cask. All of these are wrapped up in Docker containers, and orchestrated with Compose. Not exactly the cleanest system, but it gets the job done.</p>
+<p>Cider Cask is the focus of today&rsquo;s post. It was built by one of our members, who we&rsquo;ll call MF. It&rsquo;s a simple file drop box; users can log in and upload images and other files to the site, and receive short, shareable branded links they can post to our group&rsquo;s chat or share with others. It&rsquo;s a neat little project, and it&rsquo;s been very nice in combination with <a href=https://getsharex.com>ShareX</a> for sharing screenshots and the like. Cider Cask was built a number of months ago and, since being deployed, hasn&rsquo;t really needed a lot of maintenance. At least, that was true until two weeks ago.</p>
+<h2 id=what-went-wrong>What went wrong?<a href=#what-went-wrong class=hanchor arialabel=Anchor>&#8983;</a> </h2>
+<p>In case you hadn&rsquo;t heard, <a href=https://letsencrypt.org/docs/dst-root-ca-x3-expiration-september-2021/>Let&rsquo;s Encrypt&rsquo;s root certificate expired on September 30th</a>, causing many old applications and devices to reject connections to any site secured by certificates issued by Let&rsquo;s Encrypt. At Cider and Saddle, all of our services are backed by a Let&rsquo;s Encrypt wildcard certificate, which we&rsquo;d configured to automatically renew when needed. We thought that meant we&rsquo;d be in the clear; after all, we were sure to keep our production system up-to-date, and as long as the system&rsquo;s CA certificates were fresh, there shouldn&rsquo;t be any issues.</p>
+<p>We were wrong.</p>
+<p>On October 3rd, one of our community members noticed Cask was throwing 500 errors upon visiting the page. Scrubbing through the logs, it was pretty easy to guess what was going on:</p>
+<pre tabindex=0><code>OpenSSL::SSL::SSLError (SSL_connect returned=1 errno=0 state=error: certificate verify failed (certificate has expired)):
+
+app/services/openid_service.rb:32:in `request_access_token'
+app/controllers/openid_controller.rb:25:in `auth'
+</code></pre><p>We knew from the fact that all of our other services were still online that it wasn&rsquo;t the certificate itself that was the issue, so it was clear that Cider Cask&rsquo;s Docker image must have a stale CAcert file. Therefore, the logical next step would be to rebuild the Docker image with an updated base image, to hopefully get fresh CA certs.</p>
+<p>This brought up the first issue: project rot. It had been a while since anyone had touched the Cask codebase, and in that time, a few important developments had occurred; namely, the mimemagic gem was <a href=https://github.com/mimemagicrb/mimemagic/issues/97>yanked from Rubygems due to a license violation</a>. Due to this, we encountered our first hurdle, though it was fairly easily rectified by simply upgrading mimemagic. However, it required MF&rsquo;s presence, as them and myself are the only developers on the CaS tech team with Ruby experience, which added additional delay to brining Cask back online. Once mimemagic was updated, we were able to rebuild the container.</p>
+<h2 id=permissions-hell>Permissions Hell<a href=#permissions-hell class=hanchor arialabel=Anchor>&#8983;</a> </h2>
+<p>When we brought up our stack, we noticed our Cask containers were immediately crashing. Digging into the logs, we found that <code>bin/rails</code> was throwing <code>Permission denied</code> when trying to run after the container down-leveled its privileges. This is about when I enter the story, as before now I&rsquo;d been busy with coursework, and had been unable to do any sort of deep investigation. My first instinct was to check executable permissions on the Rails binstub, since that&rsquo;s the obvious answer to <code>Permission denied</code>: check the permissions. But that&rsquo;s when I noticed the third major issue:</p>
+<pre tabindex=0><code>root@container:/app/bin# ls -lah /usr/bin/env
+-rwxr-xr-x 1 root root 48K Sep 24  2020 /usr/bin/env
+root@container:/app/bin# su cidercask
+bash-5.1$ /usr/bin/env # the shebang for bin/rails
+bash: /usr/bin/env: Permission denied
+bash-5.1$ ls -la bin
+ls: error while loading shared libraries: libpcre2-8.so.0: cannot open shared object file: Permission denied
+</code></pre><p><em>wat.</em></p>
+<p>That wasn&rsquo;t supposed to happen. That couldn&rsquo;t happen. Right? Surely nothing in our <code>Dockerfile</code> should do anything to break something as critical as <strong>Coreutils</strong> of all things. And yet, after looking at the official Debian <code>slim</code> image, the official Ruby 2.6 <code>slim</code> image, and <a href=https://hub.docker.com/r/timbru31/ruby-node/><code>ruby-node</code></a>&rsquo;s <code>2.6-slim</code> tag, I was unable to find any sort of break in the chain that would cause something like this. So if the images themselves were fine, it had to be something we were doing wrong. But&mldr; what?</p>
+<p>It was at this point that another friend I was chatting with posed an interesting point: what about <code>/usr</code>? Specifically, did I make sure that my user had search permissions for <code>/usr/bin</code>? It hadn&rsquo;t occurred to me that that might be an issue, since&mldr; well, what&rsquo;s going to change permissions of <code>/usr</code> from anything other than <code>755</code>? And yet&mldr;</p>
+<pre tabindex=0><code>root@container:/app/bin# ls -la /usr
+total 44
+drwxrws--- 1 root root 4096 Aug 16  2020 .
+drwxr-xr-x 1 root root 4096 Oct 13 03:54 ..
+drwxrws--- 1 root root 4096 Aug 16  2020 bin
+...
+</code></pre><p><code>750</code>? And is that&mldr; a sticky bit? Where the hell did that come from? Well&mldr;</p>
+<pre tabindex=0><code>bw81@production-host:~srv/cider-cask$ ls -la docker
+...
+drwxrws---+  3 cas srv 4.0K Aug 15  2020 usr/
+...
+</code></pre><p>For reference, files in <code>docker/</code> were used as part of our <em>development</em> Docker builds for running every component of the application inside one container using <code>s6</code>. They had no real use in production, but we used one <code>Dockerfile</code> for both builds (perhaps to our detriment, but that&rsquo;s a topic for another time).</p>
+<p>So we&rsquo;d found our culprit. For some reason, long ago when this server was first deployed, long before we&rsquo;d even started working on the Cider and Saddle infrastructure project, these permissions had been set up this way. <code>750</code>, with the sticky bit sit, and some extended ACLs that I don&rsquo;t believe served any purpose. Docker had apparently copied these strange permissions over to our container image when it was built this time, despite never doing so before. Now, this was fine for most of the project files, since they were <code>chown</code>ed to the <code>cidercask</code> user. But <code>docker/usr</code>&mldr; we hadn&rsquo;t thought of that. So Docker &ldquo;helpfully&rdquo; copied those permissions for us, which left <code>/usr</code> readable only by <code>root:root</code>. Which meant no searching for binaries and shared objects for any user that wasn&rsquo;t <code>root</code>.</p>
+<p>Great. There went 4 hours of my life I&rsquo;ll never get back. So we reset the permissions for the <code>srv</code> user&rsquo;s homedir to make sure nothing like this would happen again, and rebuilt the container for what would hopefully be the last time. And with that, we brought up the stack one last time, confirmed everything was working, and all got to bed on time that night.</p>
+<p>&mldr; I&rsquo;m just kidding.</p>
+<pre tabindex=0><code>OpenSSL::SSL::SSLError (SSL_connect returned=1 errno=0 state=error: certificate verify failed (certificate has expired)):
+
+app/services/openid_service.rb:32:in `request_access_token'
+app/controllers/openid_controller.rb:25:in `auth'
+</code></pre><p>Goddammit.</p>
+<h2 id=square-one>Square One<a href=#square-one class=hanchor arialabel=Anchor>&#8983;</a> </h2>
+<p>So all of that was for nothing. We rebuilt the container on a completely fresh base image, one that&rsquo;s used by thousands of projects, and yet somehow&mldr; somehow we were still running into the Let&rsquo;s Encrypt issue.</p>
+<p>Okay, so&mldr; let&rsquo;s check our CA certificates. If the image maintainers won&rsquo;t update them for some reason, I guess we can always update them ourselves.</p>
+<pre tabindex=0><code>root@container:/app# apt-get update &amp;&amp; apt-get install ca-certificates
+...
+ca-certificates is already the newest version (20210119).
+</code></pre><p>What?! Those are fresh! Like, two-days-old fresh!</p>
+<p>Maybe it was an outdated version of OpenSSL? I know Debian tends to ship with fairly old versions of packages, but I would be surprised if they skimped out on keeping OpenSSL fresh.</p>
+<pre tabindex=0><code>root@container:/app# openssl version
+OpenSSL 1.1.1k  25 Mar 2021
+</code></pre><p>That&rsquo;s pretty recent. Certainly not the latest, but certainly newer than the <a href=https://community.letsencrypt.org/t/openssl-client-compatibility-changes-for-let-s-encrypt-certificates/143816>1.1.0 version Let&rsquo;s Encrypt warned everyone to upgrade to</a>.</p>
+<p>Were we somehow just&mldr; missing the ISRG root CA?</p>
+<pre tabindex=0><code>root@container:/app# ls -lah /etc/ssl/certs | grep -i isrg
+lrwxrwxrwx 1 root root   16 Sep 28 21:32 4042bcee.0 -&gt; ISRG_Root_X1.pem
+lrwxrwxrwx 1 root root   51 Sep 28 21:32 ISRG_Root_X1.pem -&gt; /usr/share/ca-certificates/mozilla/ISRG_Root_X1.crt
+</code></pre><p>No luck. Maybe having the old, expired DST root cert around was making OpenSSL unhappy? This would violate everything I know about how certificate chain validation works, but&mldr; <a href=https://stackoverflow.com/a/69407814>it seems to have worked for this StackOverflow user</a>. But not even removing the DST X3 cert and rebuilding <code>cacert.pem</code> fixed it.</p>
+<p>At this point, it was getting pretty late. Dealing with this whole mess had been pretty tiring, and it was getting hard to think straight. After jokingly suggesting to MF that we just disable SSL verification in Cask as a quick patch, I decided to put things on hold for a bit and quietly cry myself to sleep that night.</p>
+<h2 id=refreshed-perspective>Refreshed Perspective<a href=#refreshed-perspective class=hanchor arialabel=Anchor>&#8983;</a> </h2>
+<p>The moment I woke up, it hit me. The OS had fresh CA certs, that much was true. But Rails is an old framework, and I know that, back in the day, we couldn&rsquo;t always rely on the OS for up-to-date CA certs out-of-the-box. This led a lot of library/application maintainers to ship their own CA bundles that would hopefully be more reliable or, at the very least, more predictably located. So I started digging through code, trying to find where any HTTP calls where made, and what library they were using. I started with <code>request_access_token</code>, the method which was <code>raise</code>ing the error in the first place. That led me to the <code>openid_connect</code> gem which, after a small amount of its own logic, wound up in <code>rack-oauth2</code>, in a method which was responsible for completing the OAuth2 flow by exchanging the given authorization code from the user&rsquo;s browser with the authenticating server for an access token. To complete this HTTP transaction, <code>rack-oauth2</code> made use of <a href=https://rubygems.org/gems/httpclient>the <code>httpclient</code> gem</a>, which was last updated <em>5 years ago</em>. Digging into <a href=https://github.com/nahi/httpclient>its GitHub repository</a>, I quickly found the root cause of all these issues: <a href=https://github.com/nahi/httpclient/blob/4658227a46f7caa633ef8036f073bbd1f0a955a2/dist_key/cacerts.pem>a <code>cacert.pem</code> bundle</a> that was last updated <strong>11 YEARS AGO</strong>!</p>
+<p>11 years is a long time. In that time, a lot has happened in the world of certificate authorities, like <a href=https://security.googleblog.com/2018/03/distrust-of-symantec-pki-immediate.html>the untrusting of Symmantec&rsquo;s entire PKI</a> and, y&rsquo;know, <strong>the founding of Let&rsquo;s Encrypt</strong>. Seriously, this CA bundle was from a time where Let&rsquo;s Encrypt didn&rsquo;t even exist! What a dark era of network security that was. When this certificate bundle was last updated, I was 10 years old, and had just finished the 4th grade.</p>
+<p>No wonder modern infrastructure gets breached all the time.</p>
+<p>Anyway. It turns out, the maintainers of <code>rack-oauth2</code> had actually taken notice to this stale CA cert bundle, and released a version of <code>rack-oauth2</code> to work around this issue by having <code>httpclient</code> use the system&rsquo;s CA bundle instead of its own. Guess when that fix was committed and released?</p>
+<p><a href=https://github.com/nov/rack-oauth2/commit/4a207ed785cecc15e8b20f34f9acd6094634fa30>13 days ago</a>. On the same day that the LE root cert expired. I mean&mldr; I&rsquo;m glad somebody finally noticed. But the fact that this 11-year-old cert bundle was—and might still be!—buried inside potentially thousands of production applications for who-knows-how-long actually scares me. Yikes.</p>
+<p>Anyway. On that note, we quickly upgraded <code>rack-oauth2</code>, rebuilt the container, and brought up the stack for the last time. And with that, all was well. We had successfully restored Cider Cask after only&mldr; 7 days of partial outage, and 6 days of total outage. Not the worst, but certainly suboptimal.</p>
+<h2 id=closing-thoughts>Closing Thoughts<a href=#closing-thoughts class=hanchor arialabel=Anchor>&#8983;</a> </h2>
+<p>It&rsquo;s times like these that I remember why I both love and hate what I do. Working in software engineering/devops means you&rsquo;ll inevitably be faced with those kinds of impossible problems, the ones that should never happen, could never happen, and yet are totally happening, and it&rsquo;s your job to fix them. In times like those, it&rsquo;s important to question everything; don&rsquo;t leave any assumptions unturned, and don&rsquo;t just check the usual suspects. When your infrastructure seems to be falling apart, it&rsquo;s important to assume it&rsquo;s already come down, and audit everything. Never assume &ldquo;it can&rsquo;t be X, I know it isn&rsquo;t X.&rdquo; Because it will be X. It&rsquo;s always X. Sometimes even literally.</p>
+<p>But I also love these kinds of situations. Not being knee deep in total production collapse or anything, mind you; that&rsquo;s never fun. But there&rsquo;s something immensely satisfying about <em>figuring it out</em>, about finding the needle in the haystack, about wading neck-deep into the source code and coming out with the answer. And the deeper you go, the more exciting it is to finally be done with it.</p>
+<p>I&rsquo;d also like to mention once again just how scary it is that <code>httpclient</code>&rsquo;s CA bundle has been this stale for this long. The latest release has over <strong>2 million</strong> downloads on RubyGems. How many of those dependents are aware of the stale CA bundle? How many know the magic commands to get it to wipe its CA store and load the OS' defaults instead? If Let&rsquo;s Encrypt&rsquo;s root CA hadn&rsquo;t expired recently, would anyone have noticed?</p>
+<p>I leave you with two important lessons: when you&rsquo;re faced with that impossible problem, <em>check everything</em>, no matter how silly; and for the love of God, <strong>keep tabs on your dependencies</strong>, and don&rsquo;t let project rot turn a stale codebase into a vulnerability.</p>
+</div></div>
+</div>
+</div>
+<footer class=footer>
+<div class=footer__inner>
+<div class="copyright copyright--user">
+<span>(c) Eliot Partridge, 2021</span>
+<span>:: Theme made by <a href=https://twitter.com/panr>panr</a></span>
+</div>
+</div>
+</footer>
+<script src=https://code.horse/assets/main.js></script>
+<script src=https://code.horse/assets/prism.js></script>
+</div>
+</body>
+</html>
