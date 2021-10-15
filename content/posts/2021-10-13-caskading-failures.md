@@ -1,7 +1,6 @@
 ---
 title: "Caskading Failures"
 date: 2021-10-13T21:55:15-05:00
-draft: true
 ---
 
 You ever have one of *those* days? Where everything's falling apart and nothing makes sense? Where you're left wondering "how did any of this ever work?"
