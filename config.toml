@@ -1,4 +1,4 @@
-baseURL = 'https://code.horse/'
+baseURL = 'https://blog.code.horse/'
 languageCode = 'en-us'
 title = "byte-sized blog"
 theme = "terminal"
