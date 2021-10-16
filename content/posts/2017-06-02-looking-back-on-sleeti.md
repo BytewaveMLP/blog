@@ -1,0 +1,59 @@
++++
+title = "From the Archives: Looking Back on sleeti"
+date = "2017-06-02"
+cover = ""
+tags = ["", ""]
+keywords = ["", ""]
+description = "My file sharing project sleeti is nearing its first birthday (August 5th). In celebration, I decided I was going to take a look back at the original ideas for the project, the process I went through for development, and what all I learned throughout the process of building my first big open-source piece of software."
+showFullContent = false
++++
+
+**This article was originally published in a one-off blog post format before this blog was created. I've refreshed it and published it here for archival reasons.**
+
+My file sharing project sleeti is nearing its first birthday (August 5th). In celebration, I decided I was going to take a look back at the original ideas for the project, the process I went through for development, and what all I learned throughout the process of building my first big open-source piece of software.
+
+## Origins
+
+[sleeti](https://github.com/BytewaveMLP/sleeti) began in the summer of 2016 as an experiment in trying out "modern" PHP. I had never really delved into MVC all that much before; I had experimented, of course, but had never done anything in-depth with it. Larger frameworks like Symfony and Laravel looked so off-putting and complicated, but I still never completely dismissed the idea of proper OOP-based MVC frameworks. I just didn't find the bells-and-whistles approach to things all that appealing. All the "magic" of bigger frameworks just seemed like a lot to learn for one 16-year-old kid in the late summer, so I never thought much of them. Plus, I'd done some work in Slim already thanks to some excellent tutorials from [Codecourse](https://www.youtube.com/user/phpacademy) (formerly PHPAcademy), which actually helped me lay out the groundwork for sleeti proper.
+
+I don't exactly know when I started messing around with Slim, but I remember starting with Slim 2, so it was probably some time before December 2015. Around then, Slim 3 was released, and a little while later I picked up on the news. I was kind of obsessive about staying "up to date" on things, and wanted to start experimenting with version 3 as soon as possible. But I had a pretty big problem: a lack of learning resources. I caught a few things here and there from Codecourse, but nothing particularly useful or interesting (honestly, I didn't have that many big ideas anyway).
+
+I remember being excited when Codecourse's [*Authentication with Slim 3*](https://www.youtube.com/watch?v=RhcQXFeor9g&list=PLfdtiltiRHWGc_yY90XRdq6mRww042aEC) series came out. My biggest complaint until then was that I'd wanted to do *something*, but I wanted to move on from Slim 2, which I viewed as old now. Codecourse had released a [similar series for Slim 2](https://www.youtube.com/watch?v=YXKCNgfdAAM&list=PLfdtiltiRHWGKUvioJly40RJZchSG2-34), which I'd really enjoyed setting up and using to learn, but I wanted to move on to Slim 3, and the *Authentication with Slim 3* series made that easy. I built a small test project with the tutorial given, and that was that. I'd learned how to make an authentication system for Slim, and that's about the only use I'd had for it.
+
+## eeti - a mess, or a blessing?
+
+Some time later, I came across eeti.me (**edit 2021-10-15:** now defunct), a file sharing website made by a good friend of mine, [Alex](https://alexandra.moe/). eeti was simple enough—a pomf.se clone which had evolved into its own application, complete with ShareX uploading support, an announcements page for, well, announcements, and even support for tying users' uploads back to their accounts. eeti worked, and I used it for quite a while as a file sharing service. I found little to complain about, and what little I did have, Alex (mostly) took care of.
+
+Eventually, I guess Alex got tired of my requests, and gave me access to the eeti source (which is now [public](https://github.com/BookHorseSoftware/eeti.me)!) when I asked. I don't exactly remember what I had intended to add, but I do remember a lot of complaints. eeti.me, I found out, was a considerably-sized application built almost *entirely* in procedural PHP. Sure, PHP was designed as a templating language, and in its early days mixing HTML + PHP was pretty commonplace. But to someone who had found MVC to be more appropriate for larger applications, the sight of all this procedural code brought about some (joking) teasing from me. I still give Alex a hard time about it, but hey, they have their reserves about MVC and I have mine about procedural code.
+
+## The idea
+
+Seeing eeti's internals *did* give me something, though: an idea. I'd always wanted to build *something*, especially now with my new knowledge of Slim and MVC PHP, but I was never very good at coming up with ideas to work on. eeti gave me something to do: make a similar file-sharing site, but in *my* favorite style using MVC PHP and Slim 3. So, I set out to do just that, using Codecourse's Authentication series as the framework for what would become *eeti Slim*.
+
+## eeti Slim - terribly named, clunky file sharing
+
+eeti Slim was the first iteration of sleeti, built in about a week or so. It's hard to say when it was "complete," though, as development never really stopped on eeti Slim. I was constantly adding new features, ranging from profile bios and Markdown support to a fully-featured admin and moderator control panel where higher-privileged users can moderate various parts of the site. I launched the first public build of eeti Slim on one of my friend's server (I say server—really, it was just some desktop PC he had laying around (it was even a repurposed laptop at one point!)) in a late-night, very exhausting setup experience (which I would argue *still* hasn't improved all that much), which still exists today (**edit 2021-10-15L:** now defunct), albeit on another server now. At the time it went live, filenames were stored by their ID and file extension, and were only associated to the user that uploaded them on profile pages. This made for some short links (i.e., `http://example.com/viewfile/ID.EXT`), but my friend complained they lost meaningful detail in the filenames on occasion. I wasn't quite sure why that mattered—eeti doesn't do it, Imgur doesn't do it, and really a lot of sites don't do it. But I added it anyway, going for a very clunky approach of accessing files using links like `http://example.com/viewfile/ID-FILENAME.EXT` which *worked*, but felt incredibly silly in hindsight (Remember, at this time, file **links still weren't tied to the user that uploaded the file**, and so file IDs helped prevent duplicate filenames in both per-user and multi-user situations). Still, eeti Slim *worked* for a while, even if it wasn't perfect.
+
+## Advancements
+
+eeti Slim never took off all that much initially, but that didn't stop me. I kept adding new things to it, some of which came from my friend, and some my own imagination. I added a config handler (albeit a clunky JSON-based system that breaks if improperly set up). I added an admin control panel, where administrators could change various site settings and some of the underlying settings that made eeti Slim tick. I added a moderator control panel, where site moderators and administrators could view **all** uploads and remove them if appropriate. I added file visibility options, allowing *public* (anyone can view, and they appear on your profile), *unlisted* (anyone can view with the link, but they don't appear on your profile for anyone but you and moderators), and *private* (no one but you and moderators can view) files. Eventually, eeti Slim was looking like a fully-featured site, but I still didn't stop development there.
+
+## A better name
+
+Around late September of that same year, I also renamed the project to sleeti. I don't really know where I came up wit the idea, and I distinctly remember people telling me it was a silly name for sounding too much like "slutty". But that really didn't matter to me—eeti Slim had to go, and sleeti was the next best option. I liked the name, so I stuck with it.
+
+## Client filenames
+
+At one point, I finally got called out on using file IDs in the URL by (again) my server-hosting friend. I was really hesitant to make the switch over to user-based file links (ie `/viewfile/USERID/FILE.EXT`), mostly out of laziness. It would've been a big move for an established (yet low-traffic( site, and any modifications I made would *have* to work or I'd break a production site with no real backup solution in place. Eventually, though, I broke and made the move, adding a (possibly inefficient) anti-duplicate setup that just appends a counter to the start of a filename if it's found in that user's uploads already. To maintain backwards compatibility with my production side, I had to write [a clunky migration script](https://github.com/BytewaveMLP/sleeti/issues/3) that isn't very well-documented but serves its purpose, I suppose.
+
+## Later development
+
+sleeti saw a number of useful enhancements and additions later on, ranging from support for logging and even two-factor authentication support. I added "remember me" functionality using what I remembered from Codecourse's Slim 2 authentication series, and built some of it around Paragon Initiative's [excellent blog post](https://paragonie.com/blog/2015/04/secure-authentication-php-with-long-term-persistence#title.2.1) on the subject of authentication and "remember me" functionality. I can actually attribute a lot of sleeti's security improvements to Paragon, such as my session handling (which were even [added into eeti.me proper](https://github.com/BookHorseSoftware/eeti.me/commit/44333762eed0e2e33f23df457f0fd41c2e107fb4). There were even a number of bug fixes to be had, some of which went better than [others](https://i.redd.it/7hy8xkhj0wox.png) (would you believe this was a server issue the whole time?).
+
+After this point, development wasn't as much about fleshing out the site as it was adding new features and keeping things secure and stable. The site was basically feature-complete for a barebones file sharing service, and any new additions were just for fun or on request. I didn't stop there, of course; sleeti was a learning experience for me, and I wanted to keep learning. But things slowed down until today, where most commits are just general bug fixes or small feature tweaks.
+
+## Conclusion
+
+I enjoyed working on sleeti, really. Sure, I had my share of ups and downs, but I learned a lot about "modern" PHP application development using MVC and routing, as well as templating and application security. There's lots I would love to do to improve sleeti, but I feel I would need to build the site from scratch to add a lot of them. I also want to build something like sleeti in a more "proper" framework such as Laravel or Symfony, but it still seems like a daunting task to have to learn an entire framework. I still have lots I want to add to sleeti itself, too, such as proper account recovery and better administration over profiles, but as development languishes, so does my interest. School didn't help much either, eating up a lot of my time for work and play, but I'm finally out now on summer vacation and am soon to be a senior (woo!).
+
+I'm really happy with what I did with sleeti. It's by no means perfect, and it's by no means "complete" in the sense that there's nothing left to add. I'll always find something to write or something to fix, but it's on par with eeti, and that's all that matters. I know I have a lot to learn still about PHP application development, but sleeti really helped me lay a good foundation for much larger future projects.
