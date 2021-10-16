@@ -1,11 +1,7 @@
 +++
 title = "From the Archives: Looking Back on sleeti"
 date = "2017-06-02"
-cover = ""
-tags = ["", ""]
-keywords = ["", ""]
 description = "My file sharing project sleeti is nearing its first birthday (August 5th). In celebration, I decided I was going to take a look back at the original ideas for the project, the process I went through for development, and what all I learned throughout the process of building my first big open-source piece of software."
-showFullContent = false
 +++
 
 **This article was originally published in a one-off blog post format before this blog was created. I've refreshed it and published it here for archival reasons.**
