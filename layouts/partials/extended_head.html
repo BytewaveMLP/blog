@@ -7,3 +7,7 @@
 <meta name="application-name" content="byte-sized blog">
 <meta name="msapplication-TileColor" content="#00a300">
 <meta name="theme-color" content="#505050">
+
+{{ if .Params.math }}
+	{{ partial "mathjax.html" }}
+{{ end }}
