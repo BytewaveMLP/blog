@@ -4,45 +4,45 @@ title = "byte-sized blog"
 theme = "terminal"
 
 [sitemap]
-  changefreq = "monthly"
-  priority = 0.5
-  filename = "sitemap.xml"
+changefreq = "monthly"
+priority = 0.5
+filename = "sitemap.xml"
 
 [params]
-  themeColor = "green"
-  showLanguageSelector = false
-  fullWidthTheme = false
-  centerTheme = true
-  favicon = "favicon.ico"
+themeColor = "green"
+showLanguageSelector = false
+fullWidthTheme = false
+centerTheme = true
+favicon = "favicon.ico"
 [params.twitter]
-  # set Twitter handles for Twitter cards
-  # see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/guides/getting-started#card-and-content-attribution
-  # do not include @
-  creator = "Bytewave81"
-  site = ""
+# set Twitter handles for Twitter cards
+# see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/guides/getting-started#card-and-content-attribution
+# do not include @
+creator = "Bytewave81"
+site = ""
 
 [languages]
-  [languages.en]
-    languageName = "English"
-    title = "byte-sized blog"
-    subtitle = "My personal blog"
-    owner = "Eliot Partridge"
-    keywords = "programming"
-    copyright = "(c) Eliot Partridge, 2021"
-    menuMore = "Show more"
-    readMore = "Read more"
-    readOtherPosts = "Read other posts"
-    newerPosts = "Newer posts"
-    olderPosts = "Older posts"
-    missingContentMessage = "Page not found..."
-    missingBackButtonLabel = "Back to home page"
+[languages.en]
+languageName = "English"
+title = "byte-sized blog"
+subtitle = "My personal blog"
+owner = "Eliot Partridge"
+keywords = "programming"
+copyright = "(c) Eliot Partridge, 2021-23"
+menuMore = "Show more"
+readMore = "Read more"
+readOtherPosts = "Read other posts"
+newerPosts = "Newer posts"
+olderPosts = "Older posts"
+missingContentMessage = "Page not found..."
+missingBackButtonLabel = "Back to home page"
 
-    [languages.en.params.logo]
-      logoText = "byte-sized blog"
-      logoHomeLink = "/"
+[languages.en.params.logo]
+logoText = "byte-sized blog"
+logoHomeLink = "/"
 
-    [languages.en.menu]
-      [[languages.en.menu.main]]
-        identifier = "homepage"
-        name = "Main site"
-        url = "https://code.horse"
+[languages.en.menu]
+[[languages.en.menu.main]]
+identifier = "homepage"
+name = "Main site"
+url = "https://code.horse"
