@@ -1,7 +1,7 @@
 +++
 title = "The Woes of heroku_ext"
 date = "2023-03-09"
-tags = ["heroku", "devops", "programming", "rant"]
+tags = ["heroku", "devops", "programming", "rant", "work"]
 keywords = ["heroku", "devops", "postgres", "heroku_ext"]
 description = "Or, how I learned to stop loving and just give in."
 draft = true
